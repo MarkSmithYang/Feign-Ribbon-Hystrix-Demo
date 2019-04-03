@@ -1,20 +1,27 @@
-#\u8BBE\u7F6E\u670D\u52A1\u7AEF\u53E3
+#设置服务端口
 server:
   port: 9000
 
-#eureka\u6CE8\u518C\u4E2D\u5FC3\u914D\u7F6E
+#eureka服务发现配置
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8080/eureka-server/eureka/
 
-#\u5FAE\u670D\u52A1\u540D
+#微服务名
 spring:
   application:
     name: feign-hystrix
 
-#feign\u7684\u7194\u65AD\u8BBE\u7F6E,\u5B9E\u6D4B\u5982\u679C\u8BBE\u7F6E\u4E86false,\u90A3\u4E48\u76F4\u63A5\u8FD4\u56DE500\u62A5\u9519,\u800C\u4E0D\u662F\u90A3\u4E2A\u7194\u65AD\u63D0\u793A
+#如果这里设置为false,实测就无法返回熔断的提示信息,而是报500
 feign:
-  #\u5F00\u542F\u7194\u65AD
+  #开启熔断
   hystrix:
     enabled: true
+
+#actuator监控暴露的端口,注意下面放开的都是/actuator下的路径
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["info","health","hystrix.stream"]
